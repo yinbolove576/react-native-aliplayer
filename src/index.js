@@ -297,7 +297,7 @@ Player.defaultProps = {
   onProgress: () => {},
   onPrepare: () => {},
   themeColor: '#F85959',
-  enableHardwareDecoder: false,
+  enableHardwareDecoder: true,
   setSpeed: 1.0,
   setScaleMode: 0,
   isLandscape: true,
