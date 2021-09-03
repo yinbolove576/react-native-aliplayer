@@ -29,6 +29,7 @@ const Player = forwardRef(
       onProgress,
       onPrepare,
       isLandscape,
+      initFull,
       ...restProps
     },
     ref
@@ -38,7 +39,7 @@ const Player = forwardRef(
     const [error, setError] = useState(false);
     const [errorObj, setErrorObj] = useState({});
     const [loading, setLoading] = useState(true);
-    const [isFull, setIsFull] = useState(false);
+    const [isFull, setIsFull] = useState(initFull);
     const [isComplate, setIsComplate] = useState(false);
     const [isStopPlay, setIsStopPlay] = useState(false);
     const [isPlaying, setIsPlaying] = useState(setAutoPlay);
@@ -196,7 +197,7 @@ const Player = forwardRef(
             }
             setCurrent(0);
             setBuffer(0);
-            onPrepare({ duration: nativeEvent.position });
+            onPrepare({ duration: nativeEvent.duration });
           }}
           onAliLoadingBegin={() => {
             setLoading(true);
@@ -287,6 +288,7 @@ Player.propTypes = {
   onProgress: PropTypes.func, // 进度回调
   onPrepare: PropTypes.func, // 播放准备回调
   isLandscape: PropTypes.bool, // 全屏是否横屏
+  initFull: PropTypes.bool, // 初始是否全屏
 };
 
 Player.defaultProps = {
@@ -301,6 +303,7 @@ Player.defaultProps = {
   setSpeed: 1.0,
   setScaleMode: 0,
   isLandscape: true,
+  initFull: false,
 };
 
 export default React.memo(Player);
