@@ -189,7 +189,7 @@ const Player = forwardRef(
           source={playSource}
           setAutoPlay={setAutoPlay}
           selectBitrateIndex={bitrateIndex}
-          style={isFull ? fullwindowStyle : StyleSheet.absoluteFill}
+          style={StyleSheet.absoluteFill}
           onAliPrepared={({ nativeEvent }) => {
             setTotal(nativeEvent.duration);
             if (isPlaying) {
