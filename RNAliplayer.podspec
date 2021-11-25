@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.author             = { "author" => "author@domain.cn" }
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/xuqianjin/react-native-aliplayer.git", :tag => "master" }
-  s.source_files  = "RNAliplayer/**/*.{h,m}"
+  s.source_files  = "ios/RNAliplayer/*.{h,m}"
   s.requires_arc = true
 
 
