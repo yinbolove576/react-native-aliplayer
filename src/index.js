@@ -30,6 +30,7 @@ const Player = forwardRef(
       onPrepare,
       isLandscape,
       initFull,
+      isShowControler,
       ...restProps
     },
     ref
@@ -242,33 +243,34 @@ const Player = forwardRef(
           }}
         >
           <StatusBar hidden={isFull} />
-          <ControlerView
-            {...restProps}
-            title={title}
-            isFull={isFull}
-            current={current}
-            buffer={buffer}
-            total={total}
-            isError={error}
-            poster={poster}
-            isStart={isStart}
-            isLoading={loading}
-            errorObj={errorObj}
-            isPlaying={isPlaying}
-            loadingObj={loadingObj}
-            themeColor={themeColor}
-            playSource={playSource}
-            bitrateList={bitrateList}
-            bitrateIndex={bitrateIndex}
-            onSlide={handleSlide}
-            onPressPlay={handlePlay}
-            onPressPause={handlePause}
-            onPressReload={handleReload}
-            onPressFullIn={handleFullScreenIn}
-            onPressFullOut={handleFullScreenOut}
-            onChangeConfig={handleChangeConfig}
-            onChangeBitrate={handleChangeBitrate}
-          />
+          {isShowControler &&
+            <ControlerView
+              {...restProps}
+              title={title}
+              isFull={isFull}
+              current={current}
+              buffer={buffer}
+              total={total}
+              isError={error}
+              poster={poster}
+              isStart={isStart}
+              isLoading={loading}
+              errorObj={errorObj}
+              isPlaying={isPlaying}
+              loadingObj={loadingObj}
+              themeColor={themeColor}
+              playSource={playSource}
+              bitrateList={bitrateList}
+              bitrateIndex={bitrateIndex}
+              onSlide={handleSlide}
+              onPressPlay={handlePlay}
+              onPressPause={handlePause}
+              onPressReload={handleReload}
+              onPressFullIn={handleFullScreenIn}
+              onPressFullOut={handleFullScreenOut}
+              onChangeConfig={handleChangeConfig}
+              onChangeBitrate={handleChangeBitrate}
+            />}
         </ALIViewPlayer>
       </View>
     );
@@ -289,6 +291,7 @@ Player.propTypes = {
   onPrepare: PropTypes.func, // 播放准备回调
   isLandscape: PropTypes.bool, // 全屏是否横屏
   initFull: PropTypes.bool, // 初始是否全屏
+  isShowControler: PropTypes.bool,//是否显示控制组件
 };
 
 Player.defaultProps = {
@@ -304,6 +307,7 @@ Player.defaultProps = {
   setScaleMode: 0,
   isLandscape: true,
   initFull: false,
+  isShowControler: true,
 };
 
 export default React.memo(Player);
