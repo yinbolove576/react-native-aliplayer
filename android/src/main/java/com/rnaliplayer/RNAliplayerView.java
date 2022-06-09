@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.aliyun.player.AliPlayerFactory;
 import com.aliyun.player.IPlayer;
 import com.aliyun.player.bean.ErrorInfo;
 import com.aliyun.player.bean.InfoBean;
@@ -311,7 +310,7 @@ public class RNAliplayerView extends ViewGroupManager<AliSurfaceView> {
             @Override
             public void onPrepared() {
                 Log.i(TAG, "onPrepared: " + view.aliyunVodPlayer.getDuration() / 1000);
-                
+
                 WritableArray bitratesArray = new WritableNativeArray();
                 WritableMap prepareEvent = Arguments.createMap();
                 int duration = (int) (view.aliyunVodPlayer.getDuration() / 1000);//转换成秒

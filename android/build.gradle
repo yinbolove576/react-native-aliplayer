@@ -49,5 +49,5 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
-    implementation 'com.aliyun.sdk.android:AliyunPlayer:5.4.2.0-full@aar'
+    implementation 'com.aliyun.sdk.android:AliyunPlayer:5.4.6.0-full@aar'
 }
