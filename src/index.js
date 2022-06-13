@@ -31,6 +31,8 @@ const Player = forwardRef(
       isLandscape,
       initFull,
       isShowControler,
+      isShowLeftBack,
+      onPressBack,
       ...restProps
     },
     ref
@@ -147,6 +149,10 @@ const Player = forwardRef(
       showNavigationBar();
     };
 
+    const handlePressBack = () => {
+      onPressBack && onPressBack();
+    };
+
     const handleChangeConfig = (config) => {
       playerRef.current.setNativeProps(config);
     };
@@ -243,11 +249,12 @@ const Player = forwardRef(
           }}
         >
           <StatusBar hidden={isFull} />
-          {isShowControler &&
+          {isShowControler && (
             <ControlerView
               {...restProps}
               title={title}
               isFull={isFull}
+              isShowLeftBack={isShowLeftBack}
               current={current}
               buffer={buffer}
               total={total}
@@ -270,7 +277,9 @@ const Player = forwardRef(
               onPressFullOut={handleFullScreenOut}
               onChangeConfig={handleChangeConfig}
               onChangeBitrate={handleChangeBitrate}
-            />}
+              onPressBack={handlePressBack}
+            />
+          )}
         </ALIViewPlayer>
       </View>
     );
@@ -291,7 +300,9 @@ Player.propTypes = {
   onPrepare: PropTypes.func, // 播放准备回调
   isLandscape: PropTypes.bool, // 全屏是否横屏
   initFull: PropTypes.bool, // 初始是否全屏
-  isShowControler: PropTypes.bool,//是否显示控制组件
+  isShowControler: PropTypes.bool, //是否显示控制组件
+  isShowLeftBack: PropTypes.bool, // 是否显示左返回按钮
+  onPressBack: PropTypes.func, // 返回回调
 };
 
 Player.defaultProps = {
@@ -308,6 +319,8 @@ Player.defaultProps = {
   isLandscape: true,
   initFull: false,
   isShowControler: true,
+  isShowLeftBack: false,
+  onPressBack: () => {},
 };
 
 export default React.memo(Player);

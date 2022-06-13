@@ -100,6 +100,8 @@ function ControlerView({
   onChangeBitrate,
   onSlide,
   onCastClick,
+  isShowLeftBack,
+  onPressBack,
 }) {
   const [visible, setVisible] = useState(false);
   const [configVisible, setConfigVisible] = useState(false);
@@ -172,7 +174,9 @@ function ControlerView({
         ]}
       >
         <LinearGradient style={StyleSheet.absoluteFill} colors={[GradientBlack, GradientWhite]} />
-        {isFull && <ControlIcon onPress={onPressFullOut} name="left" />}
+        {(isFull || isShowLeftBack) && (
+          <ControlIcon onPress={isFull ? onPressFullOut : onPressBack} name="left" />
+        )}
         <Text style={styles.textTitle}>{title}</Text>
         {Boolean(hasBitrate && isFull) && (
           <Text
