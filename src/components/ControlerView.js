@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { Text, Animated, Easing, SafeAreaView, StyleSheet, Image } from 'react-native';
+import { View, Text, Animated, Easing, SafeAreaView, StyleSheet, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Slider from './Slide';
 
@@ -63,6 +63,16 @@ const styles = StyleSheet.create({
   bottomSlide: {
     flex: 0.8,
     marginHorizontal: 5,
+  },
+  leftBackContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 60,
+    height: 40,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -174,9 +184,7 @@ function ControlerView({
         ]}
       >
         <LinearGradient style={StyleSheet.absoluteFill} colors={[GradientBlack, GradientWhite]} />
-        {(isFull || isShowLeftBack) && (
-          <ControlIcon onPress={isFull ? onPressFullOut : onPressBack} name="left" />
-        )}
+        {isFull && <ControlIcon onPress={onPressFullOut} name="left" />}
         <Text style={styles.textTitle}>{title}</Text>
         {Boolean(hasBitrate && isFull) && (
           <Text
@@ -201,6 +209,11 @@ function ControlerView({
           />
         )}
       </AnimateView>
+      {!isFull && isShowLeftBack && (
+        <View style={styles.leftBackContainer}>
+          <ControlIcon onPress={onPressBack} name="left" />
+        </View>
+      )}
       <PressView style={styles.stateview} onPress={handlePressPlayer} activeOpacity={1}>
         <StateView
           isError={isError}
