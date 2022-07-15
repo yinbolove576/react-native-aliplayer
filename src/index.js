@@ -32,6 +32,7 @@ const Player = forwardRef(
       initFull,
       isShowControler,
       isShowLeftBack,
+      isHideBtmProgress,
       onPressBack,
       ...restProps
     },
@@ -265,6 +266,7 @@ const Player = forwardRef(
                 playSource={playSource}
                 bitrateList={bitrateList}
                 bitrateIndex={bitrateIndex}
+                isHideBtmProgress={isHideBtmProgress}
                 onSlide={handleSlide}
                 onPressPlay={handlePlay}
                 onPressPause={handlePause}
@@ -299,6 +301,7 @@ Player.propTypes = {
   initFull: PropTypes.bool, // 初始是否全屏
   isShowControler: PropTypes.bool, //是否显示控制组件
   isShowLeftBack: PropTypes.bool, // 是否显示左返回按钮
+  isHideBtmProgress: PropTypes.bool, // 是否隐藏底部进度条
   onPressBack: PropTypes.func, // 返回回调
 };
 
@@ -317,6 +320,7 @@ Player.defaultProps = {
   initFull: false,
   isShowControler: true,
   isShowLeftBack: false,
+  isHideBtmProgress: false,
   onPressBack: () => {},
 };
 

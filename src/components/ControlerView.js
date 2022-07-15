@@ -111,6 +111,7 @@ function ControlerView({
   onSlide,
   onCastClick,
   isShowLeftBack,
+  isHideBtmProgress,
   onPressBack,
 }) {
   const [visible, setVisible] = useState(false);
@@ -258,7 +259,7 @@ function ControlerView({
           />
         )}
       </AnimateView>
-      <Progress disable={visible} value={current} maxValue={total} themeColor={themeColor} />
+      <Progress disable={isHideBtmProgress ?true: visible} value={current} maxValue={total} themeColor={themeColor} />
       <ConfigView
         config={configObj}
         visible={configVisible}
