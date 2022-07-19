@@ -33,6 +33,7 @@ const Player = forwardRef(
       isShowControler,
       isShowLeftBack,
       isHideBtmProgress,
+      isHideStatusBar,
       onPressBack,
       ...restProps
     },
@@ -162,124 +163,100 @@ const Player = forwardRef(
       setBitrateIndex(newIndex);
     };
 
-    const screenWidth = Math.max(screen.width, screen.height);
-    const windowWidth = Math.max(window.width, window.height);
-
-    const screenHeight = Math.min(screen.width, screen.height);
-    const windowHeight = Math.min(window.width, window.height);
-
-    //兼容全面屏
-    const fullWindowStyle = {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: Math.min(screenWidth, windowWidth),
-      height: Math.min(screenHeight, windowHeight),
-    };
-
     return (
-      <View
-        style={{
-          zIndex: 999,
-          width: isFull ? Math.max(screenWidth, windowWidth) : style.width,
-          height: isFull ? Math.max(screenHeight, windowHeight) : style.height,
-          backgroundColor: 'black',
-        }}
-      >
-        <View style={[styles.base, isFull ? fullWindowStyle : style]}>
-          <ALIViewPlayer
-            {...restProps}
-            ref={playerRef}
-            source={playSource}
-            setAutoPlay={setAutoPlay}
-            selectBitrateIndex={bitrateIndex}
-            style={StyleSheet.absoluteFill}
-            onAliPrepared={({ nativeEvent }) => {
-              setTotal(nativeEvent.duration);
-              if (isPlaying) {
-                playerRef.current.startPlay();
-              }
-              setCurrent(0);
-              setBuffer(0);
-              onPrepare({ duration: nativeEvent.duration });
-            }}
-            onAliLoadingBegin={() => {
-              setLoading(true);
-              setLoadingObj({});
-            }}
-            onAliLoadingProgress={({ nativeEvent }) => {
-              setLoadingObj(nativeEvent);
-            }}
-            onAliLoadingEnd={() => {
-              setLoading(false);
-              setLoadingObj({});
-            }}
-            onAliRenderingStart={() => {
-              setError(false);
-              setLoading(false);
-              setIsStopPlay(false);
-              setIsPlaying(true);
-              setIsStart(true);
-            }}
-            onAliCurrentPositionUpdate={({ nativeEvent }) => {
-              setCurrent(nativeEvent.position);
-              onProgress({ progress: nativeEvent.position });
-            }}
-            onAliBufferedPositionUpdate={({ nativeEvent }) => {
-              setBuffer(nativeEvent.position);
-              onProgress({ buffered: nativeEvent.position });
-            }}
-            onAliCompletion={() => {
-              setIsComplate(true);
-              setIsPlaying(false);
-              onCompletion();
-            }}
-            onAliError={({ nativeEvent }) => {
-              setError(true);
-              setErrorObj(nativeEvent);
-            }}
-            onAliBitrateChange={({ nativeEvent }) => {
-              onChangeBitrate(nativeEvent);
-            }}
-            onAliBitrateReady={({ nativeEvent }) => {
-              setBitrateList(nativeEvent.bitrates);
-            }}
-          >
-            <StatusBar hidden={isFull} />
-            {isShowControler && (
-              <ControlerView
-                {...restProps}
-                title={title}
-                isFull={isFull}
-                isShowLeftBack={isShowLeftBack}
-                current={current}
-                buffer={buffer}
-                total={total}
-                isError={error}
-                poster={poster}
-                isStart={isStart}
-                isLoading={loading}
-                errorObj={errorObj}
-                isPlaying={isPlaying}
-                loadingObj={loadingObj}
-                themeColor={themeColor}
-                playSource={playSource}
-                bitrateList={bitrateList}
-                bitrateIndex={bitrateIndex}
-                isHideBtmProgress={isHideBtmProgress}
-                onSlide={handleSlide}
-                onPressPlay={handlePlay}
-                onPressPause={handlePause}
-                onPressReload={handleReload}
-                onPressFullIn={handleFullScreenIn}
-                onPressFullOut={handleFullScreenOut}
-                onChangeConfig={handleChangeConfig}
-                onChangeBitrate={handleChangeBitrate}
-                onPressBack={handlePressBack}
-              />
-            )}
-          </ALIViewPlayer>
-        </View>
+      <View style={[styles.base, isFull ? { width: screen.width, height: screen.height } : style]}>
+        <ALIViewPlayer
+          {...restProps}
+          ref={playerRef}
+          source={playSource}
+          setAutoPlay={setAutoPlay}
+          selectBitrateIndex={bitrateIndex}
+          style={StyleSheet.absoluteFill}
+          onAliPrepared={({ nativeEvent }) => {
+            setTotal(nativeEvent.duration);
+            if (isPlaying) {
+              playerRef.current.startPlay();
+            }
+            setCurrent(0);
+            setBuffer(0);
+            onPrepare({ duration: nativeEvent.duration });
+          }}
+          onAliLoadingBegin={() => {
+            setLoading(true);
+            setLoadingObj({});
+          }}
+          onAliLoadingProgress={({ nativeEvent }) => {
+            setLoadingObj(nativeEvent);
+          }}
+          onAliLoadingEnd={() => {
+            setLoading(false);
+            setLoadingObj({});
+          }}
+          onAliRenderingStart={() => {
+            setError(false);
+            setLoading(false);
+            setIsStopPlay(false);
+            setIsPlaying(true);
+            setIsStart(true);
+          }}
+          onAliCurrentPositionUpdate={({ nativeEvent }) => {
+            setCurrent(nativeEvent.position);
+            onProgress({ progress: nativeEvent.position });
+          }}
+          onAliBufferedPositionUpdate={({ nativeEvent }) => {
+            setBuffer(nativeEvent.position);
+            onProgress({ buffered: nativeEvent.position });
+          }}
+          onAliCompletion={() => {
+            setIsComplate(true);
+            setIsPlaying(false);
+            onCompletion();
+          }}
+          onAliError={({ nativeEvent }) => {
+            setError(true);
+            setErrorObj(nativeEvent);
+          }}
+          onAliBitrateChange={({ nativeEvent }) => {
+            onChangeBitrate(nativeEvent);
+          }}
+          onAliBitrateReady={({ nativeEvent }) => {
+            setBitrateList(nativeEvent.bitrates);
+          }}
+        >
+          <StatusBar hidden={isHideStatusBar ? true : isFull} />
+          {isShowControler && (
+            <ControlerView
+              {...restProps}
+              title={title}
+              isFull={isFull}
+              isShowLeftBack={isShowLeftBack}
+              current={current}
+              buffer={buffer}
+              total={total}
+              isError={error}
+              poster={poster}
+              isStart={isStart}
+              isLoading={loading}
+              errorObj={errorObj}
+              isPlaying={isPlaying}
+              loadingObj={loadingObj}
+              themeColor={themeColor}
+              playSource={playSource}
+              bitrateList={bitrateList}
+              bitrateIndex={bitrateIndex}
+              isHideBtmProgress={isHideBtmProgress}
+              onSlide={handleSlide}
+              onPressPlay={handlePlay}
+              onPressPause={handlePause}
+              onPressReload={handleReload}
+              onPressFullIn={handleFullScreenIn}
+              onPressFullOut={handleFullScreenOut}
+              onChangeConfig={handleChangeConfig}
+              onChangeBitrate={handleChangeBitrate}
+              onPressBack={handlePressBack}
+            />
+          )}
+        </ALIViewPlayer>
       </View>
     );
   }
@@ -302,6 +279,7 @@ Player.propTypes = {
   isShowControler: PropTypes.bool, //是否显示控制组件
   isShowLeftBack: PropTypes.bool, // 是否显示左返回按钮
   isHideBtmProgress: PropTypes.bool, // 是否隐藏底部进度条
+  isHideStatusBar: PropTypes.bool, // 画中画是否隐藏状态栏显示
   onPressBack: PropTypes.func, // 返回回调
 };
 
@@ -321,6 +299,7 @@ Player.defaultProps = {
   isShowControler: true,
   isShowLeftBack: false,
   isHideBtmProgress: false,
+  isHideStatusBar: false,
   onPressBack: () => {},
 };
 
