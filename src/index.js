@@ -30,7 +30,7 @@ const Player = forwardRef(
       onPrepare,
       isLandscape,
       initFull,
-      isShowControler,
+      showControlerView,
       isShowLeftBack,
       isHideBtmProgress,
       isHideStatusBar,
@@ -234,7 +234,7 @@ const Player = forwardRef(
           }}
         >
           <StatusBar hidden={isHideStatusBar ? true : isFull} />
-          {isShowControler && (
+          {showControlerView && (
             <ControlerView
               {...restProps}
               title={title}
@@ -286,7 +286,7 @@ Player.propTypes = {
   onPrepare: PropTypes.func, // 播放准备回调
   isLandscape: PropTypes.bool, // 全屏是否横屏
   initFull: PropTypes.bool, // 初始是否全屏
-  isShowControler: PropTypes.bool, //是否显示控制组件
+  showControlerView: PropTypes.bool, //是否显示控制组件
   isShowLeftBack: PropTypes.bool, // 是否显示左返回按钮
   isHideBtmProgress: PropTypes.bool, // 是否隐藏底部进度条
   isHideStatusBar: PropTypes.bool, // 画中画是否隐藏状态栏显示
@@ -306,7 +306,7 @@ Player.defaultProps = {
   setScaleMode: 0,
   isLandscape: true,
   initFull: false,
-  isShowControler: true,
+  showControlerView: true,
   isShowLeftBack: false,
   isHideBtmProgress: false,
   isHideStatusBar: false,
