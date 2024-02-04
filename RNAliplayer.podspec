@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
 
   s.dependency "React"
-  s.dependency "AliPlayerSDK_iOS"
+  s.dependency "AliPlayerSDK_iOS", '~> 5.5.4.0'
 
 end
 
